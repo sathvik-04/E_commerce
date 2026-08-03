@@ -14,16 +14,11 @@ export default function CategorySection({ selectedCategoryId, onSelectCategory }
 
   useEffect(() => {
     api.get('/categories')
-      .then((res) => setCategories(res.data))
-      .catch(() => {
-        setCategories([
-          { categoryId: 1, categoryName: 'Smartphones' },
-          { categoryId: 2, categoryName: 'Smartwatches' },
-          { categoryId: 3, categoryName: 'Headphones' },
-          { categoryId: 4, categoryName: 'Laptops' },
-        ]);
-      });
+      .then((res) => setCategories(res.data || []))
+      .catch(() => setCategories([]));
   }, []);
+
+  if (categories.length === 0) return null;
 
   return (
     <section className="category-section">

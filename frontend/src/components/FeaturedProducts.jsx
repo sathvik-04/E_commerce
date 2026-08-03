@@ -3,53 +3,79 @@ import api from '../api/axios';
 import ProductCard from './ProductCard';
 import './FeaturedProducts.css';
 
-export default function FeaturedProducts() {
+export default function FeaturedProducts({ categoryId, categoryName }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const pageSize = categoryId ? 12 : 8;
 
   useEffect(() => {
-    api.get('/products', {
-      params: { size: 8, sortBy: 'productId', direction: 'desc' },
-    })
+    setPage(0); // reset page on category change
+  }, [categoryId]);
+
+  useEffect(() => {
+    setLoading(true);
+    const params = {
+      size: pageSize,
+      page,
+      sortBy: 'productId',
+      direction: categoryId ? 'asc' : 'desc',
+    };
+    if (categoryId) params.categoryId = categoryId;
+
+    api.get('/products', { params })
       .then((res) => {
         setProducts(res.data.content || []);
+        setTotalPages(res.data.totalPages || 0);
       })
-      .catch(() => {
-        // Fallback sample data if backend is not running
-        setProducts([
-          { productId: 1, name: 'iPhone 15 Pro', price: '999.99', category: { categoryName: 'Smartphones' }, images: [] },
-          { productId: 2, name: 'Samsung Galaxy S24 Ultra', price: '1199.99', category: { categoryName: 'Smartphones' }, images: [] },
-          { productId: 3, name: 'MacBook Pro 14" M3 Pro', price: '1999.99', category: { categoryName: 'Laptops' }, images: [] },
-          { productId: 4, name: 'Sony WH-1000XM5', price: '349.99', category: { categoryName: 'Headphones' }, images: [] },
-          { productId: 5, name: 'Apple Watch Series 9', price: '399.99', category: { categoryName: 'Smartwatches' }, images: [] },
-          { productId: 6, name: 'Dell XPS 15', price: '1799.99', category: { categoryName: 'Laptops' }, images: [] },
-          { productId: 7, name: 'Google Pixel 8 Pro', price: '799.99', category: { categoryName: 'Smartphones' }, images: [] },
-          { productId: 8, name: 'AirPods Pro 2', price: '249.99', category: { categoryName: 'Headphones' }, images: [] },
-        ]);
-      })
+      .catch(() => setProducts([]))
       .finally(() => setLoading(false));
-  }, []);
+  }, [categoryId, page, pageSize]);
+
+  const title = categoryName ? `${categoryName}` : 'Just Arrived';
+  const subtitle = categoryName
+    ? `All ${categoryName} products`
+    : 'The latest certified refurbished deals';
 
   return (
     <section className="featured-section">
       <div className="container">
         <div className="featured-header">
           <div className="section-header">
-            <h2>Just Arrived</h2>
-            <p>The latest certified refurbished deals</p>
+            <h2>{title}</h2>
+            <p>{subtitle}</p>
           </div>
-          <a href="#" className="featured-view-all">View all products →</a>
+          {!categoryId && (
+            <a href="#" className="featured-view-all">View all products →</a>
+          )}
+          {categoryId && totalPages > 1 && (
+            <div className="featured-pagination">
+              <button
+                className="page-btn"
+                disabled={page === 0}
+                onClick={() => setPage(p => p - 1)}
+              >← Prev</button>
+              <span>{page + 1} / {totalPages}</span>
+              <button
+                className="page-btn"
+                disabled={page >= totalPages - 1}
+                onClick={() => setPage(p => p + 1)}
+              >Next →</button>
+            </div>
+          )}
         </div>
 
         <div className="featured-grid">
           {loading ? (
             <div className="featured-loading">
-              <div className="spinner"></div>
-              <p>Loading products...</p>
+              <div className="spinner" />
+              <p>Loading products…</p>
             </div>
           ) : products.length === 0 ? (
             <div className="featured-empty">
-              <p>No products available right now. Check back soon!</p>
+              <p>No products found in this category.</p>
             </div>
           ) : (
             products.map((product) => (
@@ -57,6 +83,23 @@ export default function FeaturedProducts() {
             ))
           )}
         </div>
+
+        {/* Bottom pagination for category view */}
+        {!loading && categoryId && totalPages > 1 && (
+          <div className="featured-pagination-bottom">
+            <button
+              className="page-btn"
+              disabled={page === 0}
+              onClick={() => setPage(p => p - 1)}
+            >← Prev</button>
+            <span>Page {page + 1} of {totalPages}</span>
+            <button
+              className="page-btn"
+              disabled={page >= totalPages - 1}
+              onClick={() => setPage(p => p + 1)}
+            >Next →</button>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -59,19 +59,29 @@ public class DataSeeder {
 
             List<Product> saved = productRepo.saveAll(products);
 
-            // Add placeholder image URLs
-            String[] imageNames = {
-                "iphone15pro", "galaxy-s24-ultra", "pixel8pro", "oneplus12",
-                "apple-watch-9", "galaxy-watch-6", "garmin-fenix7",
-                "sony-wh1000xm5", "airpods-pro2", "bose-qc45", "sennheiser-m4",
-                "macbook-pro-m3", "dell-xps15", "thinkpad-x1", "rog-zephyrus-g14"
+            // Real product image URLs from Unsplash
+            String[] imageUrls = {
+                "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=500&h=400&fit=crop&q=80",   // iPhone 15 Pro
+                "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500&h=400&fit=crop&q=80",  // Samsung Galaxy S24
+                "https://images.unsplash.com/photo-1598327105854-c8674faddf79?w=500&h=400&fit=crop&q=80",  // Google Pixel 8 Pro
+                "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=500&h=400&fit=crop&q=80",  // OnePlus 12
+                "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&h=400&fit=crop&q=80",     // Apple Watch Series 9
+                "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500&h=400&fit=crop&q=80",  // Samsung Galaxy Watch
+                "https://images.unsplash.com/photo-1523475496153-3eca6f9cdf7f?w=500&h=400&fit=crop&q=80",  // Garmin Fenix 7
+                "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=400&fit=crop&q=80",  // Sony WH-1000XM5
+                "https://images.unsplash.com/photo-1606741965509-717f7b70c7b8?w=500&h=400&fit=crop&q=80",  // AirPods Pro 2
+                "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&h=400&fit=crop&q=80",  // Bose QC45
+                "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=500&h=400&fit=crop&q=80",  // Sennheiser Momentum 4
+                "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&h=400&fit=crop&q=80",  // MacBook Pro M3
+                "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=400&fit=crop&q=80",  // Dell XPS 15
+                "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=500&h=400&fit=crop&q=80",  // ThinkPad X1
+                "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=500&h=400&fit=crop&q=80"   // ASUS ROG Zephyrus
             };
 
             for (int i = 0; i < saved.size(); i++) {
                 Product p = saved.get(i);
-                String imgUrl = "/uploads/" + imageNames[i] + ".jpg";
                 ProductImage image = ProductImage.builder()
-                        .imageUrl(imgUrl)
+                        .imageUrl(imageUrls[i])
                         .product(p)
                         .build();
                 p.getImages().add(image);

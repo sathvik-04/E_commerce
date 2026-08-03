@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import HeroSection from '../components/HeroSection';
 import TrustStrip from '../components/TrustStrip';
 import CategorySection from '../components/CategorySection';
@@ -5,12 +6,34 @@ import FeaturedProducts from '../components/FeaturedProducts';
 import './HomePage.css';
 
 export default function HomePage() {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  // { categoryId, categoryName }
+
+  const handleSelectCategory = (cat) => {
+    // Toggle off if same category clicked again
+    setSelectedCategory(prev =>
+      prev?.categoryId === cat.categoryId ? null : cat
+    );
+    // Scroll to products
+    setTimeout(() => {
+      document.getElementById('products-section')?.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
+  };
+
   return (
     <>
       <HeroSection />
       <TrustStrip />
-      <CategorySection />
-      <FeaturedProducts />
+      <CategorySection
+        selectedCategoryId={selectedCategory?.categoryId}
+        onSelectCategory={handleSelectCategory}
+      />
+      <div id="products-section">
+        <FeaturedProducts
+          categoryId={selectedCategory?.categoryId || null}
+          categoryName={selectedCategory?.categoryName || null}
+        />
+      </div>
 
       {/* Why Refurbished */}
       <section className="why-section" id="why-refurbished">

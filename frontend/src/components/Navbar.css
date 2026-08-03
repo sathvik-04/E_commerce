@@ -66,6 +66,38 @@
   gap: 12px;
 }
 
+.navbar-cart {
+  position: relative;
+  font-size: 1.3rem;
+  line-height: 1;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.navbar-cart:hover {
+  transform: scale(1.1);
+}
+
+.navbar-cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  line-height: 1;
+}
+
 .navbar-user {
   display: flex;
   align-items: center;

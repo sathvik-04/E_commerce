@@ -92,3 +92,35 @@
 .product-card-action:hover {
   color: var(--accent-hover);
 }
+
+/* Add to Cart button */
+.product-card-cart-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.product-card-cart-btn:hover:not(:disabled) {
+  background: var(--accent);
+  color: #fff;
+}
+
+.product-card-cart-btn.added {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.product-card-cart-btn:disabled {
+  border-color: var(--border);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}

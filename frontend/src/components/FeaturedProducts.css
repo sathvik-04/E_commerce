@@ -55,6 +55,43 @@
   to { transform: rotate(360deg); }
 }
 
+/* Pagination */
+.featured-pagination,
+.featured-pagination-bottom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.featured-pagination-bottom {
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.page-btn {
+  padding: 6px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--accent);
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--bg-primary);
+}
+
+.page-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 @media (max-width: 1024px) {
   .featured-grid {
     grid-template-columns: repeat(3, 1fr);

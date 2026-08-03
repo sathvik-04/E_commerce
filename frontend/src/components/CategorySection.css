@@ -24,6 +24,22 @@
   box-shadow: var(--shadow-md);
 }
 
+.category-card.active {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(45,106,79,0.18);
+}
+
+.category-card.active h3 {
+  color: var(--accent);
+}
+
+.category-card.active p {
+  color: var(--accent);
+  font-weight: 500;
+}
+
 .category-card-icon {
   font-size: 2.5rem;
   margin-bottom: 12px;

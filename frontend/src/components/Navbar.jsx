@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 import './Navbar.css';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
+  const { totalItems } = useCart();
   const location = useLocation();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -39,12 +41,25 @@ export default function Navbar() {
             <Link to="/" className={isActive('/')} onClick={() => setMenuOpen(false)}>
               Home
             </Link>
-            <Link to="/" className="" onClick={() => setMenuOpen(false)}>
+            <Link to="/" className="" onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById('products-section')?.scrollIntoView({ behavior: 'smooth' }), 100); }}>
               Products
             </Link>
           </div>
 
           <div className="navbar-actions">
+            {/* Cart icon */}
+            <Link
+              to="/cart"
+              className="navbar-cart"
+              onClick={() => setMenuOpen(false)}
+              title="Cart"
+            >
+              🛒
+              {totalItems > 0 && (
+                <span className="navbar-cart-badge">{totalItems > 99 ? '99+' : totalItems}</span>
+              )}
+            </Link>
+
             {user ? (
               <div className="navbar-user">
                 <span>Hi, <strong>{user.username}</strong></span>

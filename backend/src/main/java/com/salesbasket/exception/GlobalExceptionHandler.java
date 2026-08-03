@@ -1,6 +1,7 @@
 package com.salesbasket.exception;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -27,6 +29,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleIllegalArgument(IllegalArgumentException ex) {
+        log.error("IllegalArgumentException: ", ex);
         return Map.of("message", ex.getMessage());
     }
 
@@ -45,6 +48,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Map<String, String> handleGeneric(Exception ex) {
+        log.error("CRITICAL UNHANDLED EXCEPTION: ", ex);
         return Map.of("message", "An unexpected error occurred: " + ex.getMessage());
     }
 }

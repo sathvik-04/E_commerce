@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "categories")
@@ -19,5 +21,6 @@ public class Category {
     private Long categoryId;
 
     @Column(nullable = false, unique = true)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private String categoryName;
 }

@@ -9,9 +9,11 @@ com\salesbasket\dto\ProductResponse$CategoryDto$CategoryDtoBuilder.class
 com\salesbasket\dto\ProductResponse$CategoryDto.class
 com\salesbasket\service\CartService.class
 com\salesbasket\controller\AuthController.class
+com\salesbasket\dto\PaymentOrderResponse.class
 com\salesbasket\dto\LoginResponse.class
 com\salesbasket\dto\MessageResponse$MessageResponseBuilder.class
 com\salesbasket\exception\GlobalExceptionHandler.class
+com\salesbasket\dto\PaymentOrderRequest.class
 com\salesbasket\dto\ProductResponse.class
 com\salesbasket\entity\BlacklistedToken$BlacklistedTokenBuilder.class
 com\salesbasket\dto\MessageResponse.class
@@ -34,8 +36,11 @@ com\salesbasket\repository\CartItemRepository.class
 com\salesbasket\controller\CartController.class
 com\salesbasket\repository\CategoryRepository.class
 com\salesbasket\config\SecurityConfig.class
+com\salesbasket\dto\PaymentVerifyRequest.class
 com\salesbasket\config\WebConfig.class
 com\salesbasket\entity\CartItem$CartItemBuilder.class
+com\salesbasket\dto\PaymentOrderResponse$PaymentOrderResponseBuilder.class
+com\salesbasket\controller\PaymentController.class
 com\salesbasket\dto\ProductResponse$ImageDto$ImageDtoBuilder.class
 com\salesbasket\entity\BlacklistedToken.class
 com\salesbasket\repository\BlacklistedTokenRepository.class
@@ -44,6 +49,7 @@ com\salesbasket\security\JwtUtil.class
 com\salesbasket\dto\ProductResponse$ImageDto.class
 com\salesbasket\entity\User.class
 com\salesbasket\service\ProductService.class
+com\salesbasket\service\RazorpayService.class
 com\salesbasket\controller\ProductController.class
 com\salesbasket\entity\ProductImage$ProductImageBuilder.class
 com\salesbasket\controller\CategoryController.class

@@ -4,12 +4,16 @@ C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\config\We
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\controller\AuthController.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\controller\CartController.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\controller\CategoryController.java
+C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\controller\PaymentController.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\controller\ProductController.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\CartItemResponse.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\CartRequest.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\LoginRequest.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\LoginResponse.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\MessageResponse.java
+C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\PaymentOrderRequest.java
+C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\PaymentOrderResponse.java
+C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\PaymentVerifyRequest.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\ProductResponse.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\RegisterRequest.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\entity\BlacklistedToken.java
@@ -32,3 +36,4 @@ C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\service\A
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\service\CartService.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\service\CategoryService.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\service\ProductService.java
+C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\service\RazorpayService.java

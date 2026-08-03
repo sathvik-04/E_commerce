@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "productimages")
@@ -19,6 +21,7 @@ public class ProductImage {
     private Long imageId;
 
     @Column(nullable = false)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)

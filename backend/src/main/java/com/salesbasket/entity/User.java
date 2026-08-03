@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 
@@ -21,16 +23,20 @@ public class User {
     private Long userId;
 
     @Column(nullable = false, unique = true)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private String username;
 
     @Column(nullable = false, unique = true)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private String email;
 
     @Column(nullable = false)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private Role role;
 
     @Column(nullable = false, updatable = false)

@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -24,9 +26,11 @@ public class Product {
     private Long productId;
 
     @Column(nullable = false)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private String name;
 
     @Column(columnDefinition = "TEXT")
+    @JdbcTypeCode(SqlTypes.LONGVARCHAR)
     private String description;
 
     @Column(nullable = false, precision = 10, scale = 2)

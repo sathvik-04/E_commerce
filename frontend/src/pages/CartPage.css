@@ -229,6 +229,51 @@
   font-size: 0.875rem;
 }
 
+/* Razorpay badge */
+.razorpay-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 10px 0;
+}
+
+.razorpay-icon {
+  margin-right: 4px;
+}
+
+/* Payment error */
+.payment-error {
+  background: var(--danger-light);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+/* Checkout spinner (inside button) */
+.checkout-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin-right: 6px;
+}
+
+/* Payment success icon */
+.payment-success-icon {
+  font-size: 4rem;
+  margin-bottom: 8px;
+}
+
 /* Empty state */
 .cart-empty-state {
   min-height: calc(100vh - var(--nav-height));

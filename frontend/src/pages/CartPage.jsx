@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import api from '../api/axios';
 import './CartPage.css';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL?.replace('/api', '') || 'http://localhost:8080';
@@ -15,6 +17,89 @@ export default function CartPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [paymentError, setPaymentError] = useState('');
+
+  /* ── Razorpay Checkout ── */
+  const handleCheckout = async () => {
+    if (!user) { navigate('/auth'); return; }
+    if (!window.Razorpay) {
+      setPaymentError('Payment SDK failed to load. Please refresh the page.');
+      return;
+    }
+
+    setCheckoutLoading(true);
+    setPaymentError('');
+
+    try {
+      // Step 1 – create order on server
+      const { data: order } = await api.post('/payment/create-order', {
+        amount: totalPrice,
+      });
+
+      // Step 2 – open Razorpay modal
+      const options = {
+        key: order.keyId,
+        amount: Math.round(totalPrice * 100), // paise
+        currency: order.currency || 'INR',
+        name: 'SalesBasket',
+        description: `${cartItems.length} item(s) — Certified Refurbished Electronics`,
+        order_id: order.orderId,
+        image: 'https://via.placeholder.com/64x64/2d6a4f/ffffff?text=SB',
+        prefill: {
+          name: user.username,
+        },
+        theme: { color: '#2d6a4f' },
+
+        handler: async function (response) {
+          // Step 3 – verify on server
+          try {
+            const { data } = await api.post('/payment/verify', {
+              razorpayOrderId: response.razorpay_order_id,
+              razorpayPaymentId: response.razorpay_payment_id,
+              razorpaySignature: response.razorpay_signature,
+            });
+            await clearCart();
+            setPaymentSuccess(true);
+          } catch {
+            setPaymentError('Payment verification failed. Please contact support.');
+          }
+        },
+
+        modal: {
+          ondismiss: () => setCheckoutLoading(false),
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.on('payment.failed', (response) => {
+        setPaymentError(`Payment failed: ${response.error.description}`);
+        setCheckoutLoading(false);
+      });
+      rzp.open();
+    } catch (err) {
+      const msg = err.response?.data?.message || 'Could not initiate payment. Please try again.';
+      setPaymentError(msg);
+      setCheckoutLoading(false);
+    }
+  };
+
+  /* ── Payment Success Screen ── */
+  if (paymentSuccess) {
+    return (
+      <div className="cart-empty-state">
+        <div className="payment-success-icon">✅</div>
+        <h2>Payment Successful!</h2>
+        <p>Thank you for your order, <strong>{user?.username}</strong>. Your items are on their way!</p>
+        <button className="btn btn-primary" onClick={() => navigate('/')}>
+          Continue Shopping
+        </button>
+      </div>
+    );
+  }
+
+  /* ── Not Logged In ── */
   if (!user) {
     return (
       <div className="cart-empty-state">
@@ -28,6 +113,7 @@ export default function CartPage() {
     );
   }
 
+  /* ── Loading ── */
   if (cartLoading) {
     return (
       <div className="cart-empty-state">
@@ -37,6 +123,7 @@ export default function CartPage() {
     );
   }
 
+  /* ── Empty Cart ── */
   if (cartItems.length === 0) {
     return (
       <div className="cart-empty-state">
@@ -50,6 +137,8 @@ export default function CartPage() {
     );
   }
 
+  const totalItems = cartItems.reduce((s, i) => s + i.quantity, 0);
+
   return (
     <div className="cart-page">
       <div className="container">
@@ -61,7 +150,7 @@ export default function CartPage() {
         </div>
 
         <div className="cart-layout">
-          {/* Items list */}
+          {/* Items */}
           <div className="cart-items">
             {cartItems.map(item => {
               const imgUrl = getImageUrl(item.imageUrl);
@@ -111,25 +200,61 @@ export default function CartPage() {
             })}
           </div>
 
-          {/* Order summary */}
+          {/* Order Summary */}
           <div className="cart-summary">
             <h2>Order Summary</h2>
             <div className="summary-row">
-              <span>Subtotal ({cartItems.reduce((s, i) => s + i.quantity, 0)} items)</span>
+              <span>Subtotal ({totalItems} item{totalItems !== 1 ? 's' : ''})</span>
               <span>₹{totalPrice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
             </div>
             <div className="summary-row">
               <span>Shipping</span>
               <span className="summary-free">FREE</span>
             </div>
+            <div className="summary-row">
+              <span>Tax (GST incl.)</span>
+              <span>₹0.00</span>
+            </div>
             <div className="summary-divider" />
             <div className="summary-row summary-total">
               <span>Total</span>
               <span>₹{totalPrice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
             </div>
-            <button className="btn btn-primary cart-checkout-btn">
-              Proceed to Checkout
+
+            {/* Error message */}
+            {paymentError && (
+              <div className="payment-error">{paymentError}</div>
+            )}
+
+            {/* Razorpay Checkout Button */}
+            <button
+              className="btn btn-primary cart-checkout-btn"
+              onClick={handleCheckout}
+              disabled={checkoutLoading}
+            >
+              {checkoutLoading ? (
+                <>
+                  <span className="checkout-spinner" />
+                  Processing…
+                </>
+              ) : (
+                <>
+                  <span className="razorpay-icon">🔒</span>
+                  Pay ₹{totalPrice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                </>
+              )}
             </button>
+
+            <div className="razorpay-badge">
+              <img
+                src="https://razorpay.com/assets/razorpay-glyph.svg"
+                alt="Razorpay"
+                width="16"
+                height="16"
+              />
+              Secured by Razorpay
+            </div>
+
             <button className="btn btn-outline cart-continue-btn" onClick={() => navigate('/')}>
               Continue Shopping
             </button>

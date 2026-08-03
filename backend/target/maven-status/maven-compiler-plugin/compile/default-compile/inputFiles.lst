@@ -4,6 +4,7 @@ C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\config\We
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\controller\AuthController.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\controller\CartController.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\controller\CategoryController.java
+C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\controller\OrderController.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\controller\PaymentController.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\controller\ProductController.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\CartItemResponse.java
@@ -11,6 +12,8 @@ C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\CartR
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\LoginRequest.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\LoginResponse.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\MessageResponse.java
+C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\OrderItemResponse.java
+C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\OrderResponse.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\PaymentOrderRequest.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\PaymentOrderResponse.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\PaymentVerifyRequest.java
@@ -19,6 +22,8 @@ C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\dto\Regis
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\entity\BlacklistedToken.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\entity\CartItem.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\entity\Category.java
+C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\entity\Order.java
+C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\entity\OrderItem.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\entity\Product.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\entity\ProductImage.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\entity\User.java
@@ -26,6 +31,7 @@ C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\exception
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\repository\BlacklistedTokenRepository.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\repository\CartItemRepository.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\repository\CategoryRepository.java
+C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\repository\OrderRepository.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\repository\ProductRepository.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\repository\UserRepository.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\SalesBasketApplication.java
@@ -35,5 +41,6 @@ C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\security\
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\service\AuthService.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\service\CartService.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\service\CategoryService.java
+C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\service\OrderService.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\service\ProductService.java
 C:\StringStackProject\E_commerce\backend\src\main\java\com\salesbasket\service\RazorpayService.java

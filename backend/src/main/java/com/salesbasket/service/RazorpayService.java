@@ -37,7 +37,10 @@ public class RazorpayService {
             body.put("currency", "INR");
             body.put("receipt", "rcpt_" + System.currentTimeMillis());
 
-            String auth = keyId + ":" + keySecret;
+            String cleanKeyId = keyId != null ? keyId.trim() : "";
+            String cleanKeySecret = keySecret != null ? keySecret.trim() : "";
+
+            String auth = cleanKeyId + ":" + cleanKeySecret;
             String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes(StandardCharsets.UTF_8));
 
             HttpRequest request = HttpRequest.newBuilder()
@@ -62,7 +65,7 @@ public class RazorpayService {
                     .orderId(orderId)
                     .amount(amountInRupees)
                     .currency("INR")
-                    .keyId(keyId)
+                    .keyId(cleanKeyId)
                     .build();
 
         } catch (Exception e) {
@@ -73,8 +76,13 @@ public class RazorpayService {
 
     public boolean verifyPayment(String razorpayOrderId, String razorpayPaymentId, String razorpaySignature) {
         try {
-            String data = razorpayOrderId + "|" + razorpayPaymentId;
-            SecretKeySpec secretKeySpec = new SecretKeySpec(keySecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+            String cleanOrderId = razorpayOrderId != null ? razorpayOrderId.trim() : "";
+            String cleanPaymentId = razorpayPaymentId != null ? razorpayPaymentId.trim() : "";
+            String cleanSignature = razorpaySignature != null ? razorpaySignature.trim() : "";
+            String cleanKeySecret = keySecret != null ? keySecret.trim() : "";
+
+            String data = cleanOrderId + "|" + cleanPaymentId;
+            SecretKeySpec secretKeySpec = new SecretKeySpec(cleanKeySecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
             Mac mac = Mac.getInstance("HmacSHA256");
             mac.init(secretKeySpec);
             byte[] hash = mac.doFinal(data.getBytes(StandardCharsets.UTF_8));
@@ -87,8 +95,8 @@ public class RazorpayService {
             }
 
             String generatedSignature = hexString.toString();
-            boolean valid = generatedSignature.equals(razorpaySignature);
-            log.info("Razorpay signature verification: {}", valid);
+            boolean valid = generatedSignature.equalsIgnoreCase(cleanSignature);
+            log.info("Razorpay signature verification: valid={} (generated={}, received={})", valid, generatedSignature, cleanSignature);
             return valid;
         } catch (Exception e) {
             log.error("Error verifying Razorpay signature: {}", e.getMessage(), e);

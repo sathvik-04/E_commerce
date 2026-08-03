@@ -13,7 +13,7 @@ function getImageUrl(url) {
 }
 
 export default function CartPage() {
-  const { cartItems, cartLoading, updateQuantity, removeFromCart, clearCart, totalPrice } = useCart();
+  const { cartItems, cartLoading, updateQuantity, removeFromCart, clearCart, fetchCart, totalPrice } = useCart();
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -55,15 +55,18 @@ export default function CartPage() {
         handler: async function (response) {
           // Step 3 – verify on server
           try {
-            const { data } = await api.post('/payment/verify', {
+            await api.post('/payment/verify', {
               razorpayOrderId: response.razorpay_order_id,
               razorpayPaymentId: response.razorpay_payment_id,
               razorpaySignature: response.razorpay_signature,
             });
-            await clearCart();
+            await fetchCart(); // refresh frontend cart (which backend cleared)
             setPaymentSuccess(true);
-          } catch {
-            setPaymentError('Payment verification failed. Please contact support.');
+          } catch (err) {
+            const msg = err.response?.data?.message || 'Payment verification failed. Please try again.';
+            setPaymentError(msg);
+          } finally {
+            setCheckoutLoading(false);
           }
         },
 
@@ -74,7 +77,7 @@ export default function CartPage() {
 
       const rzp = new window.Razorpay(options);
       rzp.on('payment.failed', (response) => {
-        setPaymentError(`Payment failed: ${response.error.description}`);
+        setPaymentError(`Payment failed: ${response.error?.description || 'Declined'}`);
         setCheckoutLoading(false);
       });
       rzp.open();
@@ -91,10 +94,15 @@ export default function CartPage() {
       <div className="cart-empty-state">
         <div className="payment-success-icon">✅</div>
         <h2>Payment Successful!</h2>
-        <p>Thank you for your order, <strong>{user?.username}</strong>. Your items are on their way!</p>
-        <button className="btn btn-primary" onClick={() => navigate('/')}>
-          Continue Shopping
-        </button>
+        <p>Thank you for your order, <strong>{user?.username}</strong>. Your order has been placed!</p>
+        <div style={{ display: 'flex', gap: '12px' }}>
+          <button className="btn btn-primary" onClick={() => navigate('/orders')}>
+            View My Orders
+          </button>
+          <button className="btn btn-outline" onClick={() => navigate('/')}>
+            Continue Shopping
+          </button>
+        </div>
       </div>
     );
   }

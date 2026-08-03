@@ -44,6 +44,11 @@ export default function Navbar() {
             <Link to="/" className="" onClick={() => { setMenuOpen(false); setTimeout(() => document.getElementById('products-section')?.scrollIntoView({ behavior: 'smooth' }), 100); }}>
               Products
             </Link>
+            {user && (
+              <Link to="/orders" className={isActive('/orders')} onClick={() => setMenuOpen(false)}>
+                My Orders
+              </Link>
+            )}
           </div>
 
           <div className="navbar-actions">

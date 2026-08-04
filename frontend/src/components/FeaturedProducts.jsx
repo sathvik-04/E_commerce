@@ -9,7 +9,7 @@ export default function FeaturedProducts({ categoryId, categoryName }) {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  const pageSize = categoryId ? 12 : 8;
+  const pageSize = categoryId ? 12 : 12;
 
   useEffect(() => {
     setPage(0); // reset page on category change
@@ -20,8 +20,8 @@ export default function FeaturedProducts({ categoryId, categoryName }) {
     const params = {
       size: pageSize,
       page,
-      sortBy: 'productId',
-      direction: categoryId ? 'asc' : 'desc',
+      sortBy: categoryId ? 'productId' : 'name',
+      direction: 'asc',
     };
     if (categoryId) params.categoryId = categoryId;
 

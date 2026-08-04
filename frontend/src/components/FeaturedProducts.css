@@ -1,13 +1,14 @@
 .featured-section {
-  padding: 80px 0;
-  background: var(--bg-secondary);
+  padding: 64px 0;
+  background: var(--bg-warm);
 }
 
 .featured-header {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
+  gap: 16px;
 }
 
 .featured-header .section-header {
@@ -15,20 +16,21 @@
 }
 
 .featured-view-all {
-  font-size: 0.9rem;
-  color: var(--accent);
-  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--brand);
+  font-weight: 600;
   white-space: nowrap;
+  transition: opacity var(--transition);
 }
 
 .featured-view-all:hover {
-  text-decoration: underline;
+  opacity: 0.7;
 }
 
 .featured-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 18px;
 }
 
 .featured-loading,
@@ -37,22 +39,18 @@
   text-align: center;
   padding: 48px 0;
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 .featured-loading .spinner {
   display: inline-block;
   width: 24px;
   height: 24px;
-  border: 3px solid var(--border);
-  border-top-color: var(--accent);
+  border: 2.5px solid var(--border);
+  border-top-color: var(--brand);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   margin-bottom: 12px;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }
 
 /* Pagination */
@@ -60,9 +58,10 @@
 .featured-pagination-bottom {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 0.875rem;
-  color: var(--text-secondary);
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-body);
+  font-weight: 500;
 }
 
 .featured-pagination-bottom {
@@ -71,24 +70,23 @@
 }
 
 .page-btn {
-  padding: 6px 14px;
+  padding: 7px 16px;
   border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--accent);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-body);
   cursor: pointer;
-  transition: all 0.2s;
-  background: var(--bg-primary);
+  transition: all var(--transition);
+  background: var(--bg-card);
 }
 
 .page-btn:hover:not(:disabled) {
-  border-color: var(--accent);
-  background: var(--accent-light);
+  border-color: var(--text-primary);
 }
 
 .page-btn:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
@@ -99,6 +97,8 @@
 }
 
 @media (max-width: 768px) {
+  .featured-section { padding: 48px 0; }
+
   .featured-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;

@@ -1,35 +1,47 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@700;800&display=swap');
 
-/* ===== Design Tokens ===== */
+/* ===== Design Tokens — Warm, grounded palette ===== */
 :root {
   --bg-primary: #ffffff;
-  --bg-secondary: #f5f5f0;
-  --bg-dark: #1a1a2e;
-  --text-primary: #1a1a2e;
-  --text-secondary: #4a4a5a;
-  --text-muted: #8a8a9a;
-  --text-light: #c8c8d0;
-  --accent: #2d6a4f;
-  --accent-hover: #1b4332;
-  --accent-light: #d8f3dc;
-  --border: #e8e8e0;
-  --danger: #d32f2f;
-  --danger-light: #ffeaea;
-  --warning: #f9a825;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+  --bg-warm: #faf8f5;
+  --bg-cream: #f4f1ec;
+  --bg-dark: #1c1c1e;
+  --bg-card: #ffffff;
+
+  --text-primary: #1c1c1e;
+  --text-body: #3d3d3f;
+  --text-muted: #8e8e93;
+  --text-light: #aeaeb2;
+
+  --brand: #00875a;
+  --brand-dark: #006644;
+  --brand-light: #e3fcef;
+  --brand-bg: rgba(0, 135, 90, 0.06);
+
+  --coral: #ff6b5b;
+  --gold: #e8a838;
+
+  --border: #ebebeb;
+  --border-light: #f2f2f2;
+
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.07);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 100px;
+
   --max-width: 1200px;
   --nav-height: 64px;
+  --transition: 0.25s ease;
 }
 
 /* ===== Reset ===== */
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -42,7 +54,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 16px;
   line-height: 1.6;
   color: var(--text-primary);
@@ -54,9 +66,7 @@ a {
   text-decoration: none;
 }
 
-ul, ol {
-  list-style: none;
-}
+ul, ol { list-style: none; }
 
 img {
   max-width: 100%;
@@ -83,38 +93,44 @@ h1, h2, h3, h4 {
   color: var(--text-primary);
 }
 
-h1 { font-size: 2.75rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.25rem; }
-h4 { font-size: 1.1rem; }
-
-p {
-  color: var(--text-secondary);
-  line-height: 1.7;
+h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
-/* ===== Utility ===== */
+h2 {
+  font-size: 1.875rem;
+  letter-spacing: -0.01em;
+}
+
+h3 { font-size: 1.125rem; }
+h4 { font-size: 1rem; }
+
+p {
+  color: var(--text-body);
+  line-height: 1.65;
+}
+
+/* ===== Layout ===== */
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 24px;
 }
 
-.section {
-  padding: 80px 0;
-}
-
 .section-header {
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 
 .section-header h2 {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .section-header p {
   color: var(--text-muted);
-  font-size: 1.05rem;
+  font-size: 0.95rem;
 }
 
 /* ===== Buttons ===== */
@@ -124,22 +140,22 @@ p {
   justify-content: center;
   gap: 8px;
   padding: 12px 28px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  transition: all var(--transition);
   white-space: nowrap;
 }
 
 .btn-primary {
-  background: var(--accent);
+  background: var(--brand);
   color: #fff;
 }
 
 .btn-primary:hover {
-  background: var(--accent-hover);
+  background: var(--brand-dark);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 12px rgba(0, 135, 90, 0.25);
 }
 
 .btn-primary:active {
@@ -147,7 +163,7 @@ p {
 }
 
 .btn-primary:disabled {
-  background: var(--text-muted);
+  background: #ccc;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
@@ -155,19 +171,19 @@ p {
 
 .btn-outline {
   background: transparent;
-  color: var(--accent);
-  border: 1.5px solid var(--accent);
+  color: var(--text-primary);
+  border: 1.5px solid var(--border);
 }
 
 .btn-outline:hover {
-  background: var(--accent);
-  color: #fff;
+  border-color: var(--text-primary);
+  background: var(--bg-warm);
 }
 
 .btn-text {
-  color: var(--accent);
+  color: var(--brand);
   padding: 8px 4px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .btn-text:hover {
@@ -176,15 +192,17 @@ p {
 
 /* ===== Form Inputs ===== */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .form-group label {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-secondary);
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--text-body);
   margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .form-input {
@@ -195,44 +213,47 @@ p {
   background: var(--bg-primary);
   color: var(--text-primary);
   font-size: 0.95rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color var(--transition), box-shadow var(--transition);
   outline: none;
 }
 
 .form-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(0, 135, 90, 0.08);
 }
 
 .form-input.error {
-  border-color: var(--danger);
-  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.08);
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px rgba(255, 107, 91, 0.08);
 }
 
 .form-error {
-  font-size: 0.8rem;
-  color: var(--danger);
+  font-size: 0.78rem;
+  color: var(--coral);
   margin-top: 4px;
 }
 
-/* ===== Animations ===== */
+/* ===== Animations — subtle only ===== */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .fade-in {
-  animation: fadeIn 0.4s ease forwards;
+  animation: fadeIn 0.5s ease forwards;
 }
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
-  h1 { font-size: 2rem; }
+  h1 { font-size: 2.25rem; }
   h2 { font-size: 1.5rem; }
-  .section { padding: 48px 0; }
   .container { padding: 0 16px; }
 }
 
 @media (max-width: 480px) {
-  h1 { font-size: 1.75rem; }
+  h1 { font-size: 1.875rem; }
 }

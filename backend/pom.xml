@@ -19,7 +19,7 @@
     <description>SalesBasket E-Commerce Spring Boot Backend</description>
 
     <properties>
-        <java.version>23</java.version>
+        <java.version>21</java.version>
         <lombok.version>1.18.36</lombok.version>
     </properties>
 

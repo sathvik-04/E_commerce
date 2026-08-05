@@ -3,6 +3,7 @@ package com.salesbasket.exception;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -42,6 +43,30 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> handleEntityNotFound(EntityNotFoundException ex) {
+        return Map.of("message", ex.getMessage());
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public Map<String, String> handleAccessDenied(AccessDeniedException ex) {
+        return Map.of("message", "Access denied. Admin role required.");
+    }
+
+    @ExceptionHandler(DuplicateProductException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map<String, String> handleDuplicateProduct(DuplicateProductException ex) {
+        return Map.of("message", ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidCategoryException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleInvalidCategory(InvalidCategoryException ex) {
+        return Map.of("message", ex.getMessage());
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> handleResourceNotFound(ResourceNotFoundException ex) {
         return Map.of("message", ex.getMessage());
     }
 

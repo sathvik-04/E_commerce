@@ -128,9 +128,38 @@ export default function OrdersPage() {
                 <span className="order-payment-id">
                   Payment ID: <code>{order.razorpayPaymentId || 'N/A'}</code>
                 </span>
-                <button className="btn-text order-reorder-btn" onClick={() => navigate('/')}>
-                  Buy Again →
-                </button>
+                <div className="order-actions">
+                  <button className="btn-text" onClick={async () => {
+                    try {
+                      const res = await api.post(`/invoices/${order.id}/generate`);
+                      alert(res.data.message);
+                    } catch (err) {
+                      alert(err.response?.data?.message || 'Failed to generate invoice');
+                    }
+                  }}>
+                    🧾 Generate Invoice
+                  </button>
+                  <button className="btn-text" onClick={async () => {
+                    try {
+                      const res = await api.get(`/invoices/${order.id}/download`, { responseType: 'blob' });
+                      const url = window.URL.createObjectURL(new Blob([res.data], { type: 'application/pdf' }));
+                      const a = document.createElement('a');
+                      a.href = url;
+                      a.download = `invoice-order-${order.id}.pdf`;
+                      document.body.appendChild(a);
+                      a.click();
+                      a.remove();
+                      window.URL.revokeObjectURL(url);
+                    } catch (err) {
+                      alert('Failed to download invoice. Generate it first.');
+                    }
+                  }}>
+                    📥 Download PDF
+                  </button>
+                  <button className="btn-text order-reorder-btn" onClick={() => navigate('/')}>
+                    Buy Again →
+                  </button>
+                </div>
               </div>
             </div>
           ))}

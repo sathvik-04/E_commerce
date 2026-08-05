@@ -49,6 +49,11 @@ export default function Navbar() {
                 My Orders
               </Link>
             )}
+            {user && user.role === 'ADMIN' && (
+              <Link to="/admin" className={`admin-link ${isActive('/admin')}`} onClick={() => setMenuOpen(false)}>
+                ⚙️ Admin Panel
+              </Link>
+            )}
           </div>
 
           <div className="navbar-actions">

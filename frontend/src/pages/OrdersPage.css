@@ -160,17 +160,27 @@
 }
 
 .order-card-footer {
-  padding: 12px 20px;
-  background: var(--bg-cream);
-  border-top: 1px solid var(--border-light);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.78rem;
+  padding: 16px 20px;
+  background: var(--bg-primary);
+  border-bottom-left-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.order-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .order-payment-id {
   color: var(--text-muted);
+  font-size: 0.78rem;
 }
 
 .order-payment-id code {

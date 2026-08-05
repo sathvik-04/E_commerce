@@ -55,6 +55,17 @@
   background: var(--bg-warm);
 }
 
+.navbar-links a.admin-link {
+  color: var(--brand);
+  font-weight: 600;
+}
+
+.navbar-links a.admin-link:hover,
+.navbar-links a.admin-link.active {
+  color: #fff;
+  background: var(--brand);
+}
+
 .navbar-actions {
   display: flex;
   align-items: center;
